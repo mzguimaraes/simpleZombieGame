@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ZombieMove : MonoBehaviour {
+public class Zombie : MonoBehaviour {
 
 	public float speed = 50;
+	public int health = 1;
 
 	private GameObject player;
 	private Vector3 moveVector = Vector3.zero;
@@ -24,5 +25,12 @@ public class ZombieMove : MonoBehaviour {
 		toPlayer.z = 0; //just in case
 		moveVector = toPlayer * speed * Time.fixedDeltaTime;
 		rb2d.velocity = moveVector;
+	}
+
+	public void TakeDamage() {
+		health--;
+		if (health <= 0) {
+			Destroy(gameObject);
+		}
 	}
 }

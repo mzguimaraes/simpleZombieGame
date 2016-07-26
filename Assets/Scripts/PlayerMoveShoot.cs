@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerMove : MonoBehaviour {
+public class PlayerMoveShoot : MonoBehaviour {
+
+	//TODO: add shooting
 
 	public float speed = 50f;
+	public Bullet bullet;
 
 	private Rigidbody2D rb2d;
 
@@ -17,6 +20,10 @@ public class PlayerMove : MonoBehaviour {
 		Vector3 lookDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 		lookDir.z = 0f;
 		transform.up = lookDir;
+
+		if(Input.GetMouseButtonDown(0)) {
+			Instantiate(bullet, transform.position + Vector3.up, Quaternion.identity);
+		}
 	}
 	
 	void FixedUpdate () {
