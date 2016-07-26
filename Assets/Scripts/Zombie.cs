@@ -23,7 +23,7 @@ public class Zombie : MonoBehaviour {
 	void FixedUpdate() {
 		Vector3 toPlayer = player.transform.position - transform.position;
 		toPlayer.z = 0; //just in case
-		moveVector = toPlayer * speed * Time.fixedDeltaTime;
+		moveVector = toPlayer.normalized * speed * Time.fixedDeltaTime;
 		rb2d.velocity = moveVector;
 	}
 

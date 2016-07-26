@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour {
 
-	public float velocity = 200f;
+	public float velocity = 10f;
 	public float timeForExistence = 5f;
 
 	private Vector3 forward;  //direction to move in
@@ -17,7 +17,7 @@ public class Bullet : MonoBehaviour {
 		if (forward.magnitude > 1f)
 			forward.Normalize();
 		rb2d = GetComponent<Rigidbody2D>();
-		rb2d.velocity = forward * velocity * Time.deltaTime;
+		rb2d.velocity = forward * velocity;
 	}
 
 	void Update() {
@@ -30,6 +30,9 @@ public class Bullet : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other) {
 		if (other.tag == "Zombie") {
 			other.GetComponent<Zombie>().TakeDamage();
+		}
+		else if (other.tag == "Player") {
+			return;
 		}
 
 		Destroy(gameObject);

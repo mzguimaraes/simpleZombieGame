@@ -3,8 +3,6 @@ using System.Collections;
 
 public class PlayerMoveShoot : MonoBehaviour {
 
-	//TODO: add shooting
-
 	public float speed = 50f;
 	public Bullet bullet;
 
@@ -22,7 +20,9 @@ public class PlayerMoveShoot : MonoBehaviour {
 		transform.up = lookDir;
 
 		if(Input.GetMouseButtonDown(0)) {
-			Instantiate(bullet, transform.position + Vector3.up, Quaternion.identity);
+			Instantiate(bullet, 
+						transform.position, 
+						Quaternion.identity);
 		}
 	}
 	
