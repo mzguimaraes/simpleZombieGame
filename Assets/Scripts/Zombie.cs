@@ -31,6 +31,7 @@ public class Zombie : MonoBehaviour {
 		health--;
 		if (health <= 0) {
 			Destroy(gameObject);
+			GameObject.FindObjectOfType<PointSystem>().incrementZombiesToAdd();
 		}
 	}
 }

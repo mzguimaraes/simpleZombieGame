@@ -8,6 +8,7 @@ public class ZombieSpawner : MonoBehaviour {
 	//public float spawnDelay = 0f;
 	public float spawnDecayScalar = 50f;
 	public float spawnRateFloor = 0.75f;
+	public float spawnChance = 0.6f;
 
 	private float spawnCooldown = 0f;
 	
@@ -27,9 +28,11 @@ public class ZombieSpawner : MonoBehaviour {
 	}
 
 	void spawnZombie() {
-		Instantiate(zombie,
-					transform.position + (Vector3.down * transform.rotation.eulerAngles.magnitude),
-					Quaternion.identity);
+		if (Random.value <= spawnChance) {
+			Instantiate(zombie,
+						transform.position + (Vector3.down * transform.rotation.eulerAngles.magnitude),
+						Quaternion.identity);
+		}
 	}
 
 	private float findSpawnCooldown() {
