@@ -31,7 +31,7 @@ public class Bullet : MonoBehaviour {
 		if (other.tag == "Zombie") {
 			other.GetComponent<Zombie>().TakeDamage();
 		}
-		else if (other.tag == "Player") {
+		else if (other.tag == "Player" || other.tag == "Ammo") {
 			return;
 		}
 

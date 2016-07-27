@@ -3,12 +3,13 @@ using System.Collections;
 
 public class Ammo : MonoBehaviour {
 
-	public int ammoCountMax = 10;
+	public int ammoCountMin = 4;
+	public int ammoCountMax = 8;
 
 	private int ammoCount;
 
 	void Start() {
-		ammoCount = Random.Range(1, ammoCountMax);
+		ammoCount = Random.Range(ammoCountMin, ammoCountMax);
 	}
 	
 	void OnTriggerEnter2D(Collider2D other) {
