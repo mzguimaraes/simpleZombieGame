@@ -17,8 +17,6 @@ public class PointSystem : MonoBehaviour {
 	private int zombiesToAdd = 0;
 
 	void Start () {
-		DontDestroyOnLoad(gameObject);
-
 		text.text = "Zombies killed: " + score;
 	}
 

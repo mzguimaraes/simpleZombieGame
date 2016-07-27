@@ -21,10 +21,15 @@ public class Zombie : MonoBehaviour {
 //	}
 
 	void FixedUpdate() {
-		Vector3 toPlayer = player.transform.position - transform.position;
-		toPlayer.z = 0; //just in case
-		moveVector = toPlayer.normalized * speed * Time.fixedDeltaTime;
-		rb2d.velocity = moveVector;
+		if (player != null) {
+			Vector3 toPlayer = player.transform.position - transform.position;
+			toPlayer.z = 0; //just in case
+			moveVector = toPlayer.normalized * speed * Time.fixedDeltaTime;
+			rb2d.velocity = moveVector;
+		}
+		else {
+			rb2d.velocity = Vector2.zero;
+		}
 	}
 
 	public void TakeDamage() {
