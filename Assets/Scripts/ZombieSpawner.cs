@@ -5,38 +5,37 @@ public class ZombieSpawner : MonoBehaviour {
 
 	public GameObject zombie;
 	public float startSpawnTimer = 5f;
-	//public float spawnDelay = 0f;
-	public float spawnDecayScalar = 50f;
+	public float spawnDecayScalar = 30f;
 	public float spawnRateFloor = 0.75f;
 	public float spawnChance = 0.6f;
+	public float maxSpawnDelay = 5f;
 
 	private float spawnCooldown = 0f;
-	
-	// Update is called once per frame
+	private float spawnDelay;
+
 	void Start () {
-		//InvokeRepeating("spawnZombie", spawnDelay, startSpawnTimer);
-		//Invoke("spawnZombie", findSpawnCooldown());
+		spawnDelay = Random.value * maxSpawnDelay;
 	}
 
 	void Update () {
 		spawnCooldown -= Time.deltaTime;
 		if (spawnCooldown <= 0f) {
-			spawnZombie();
-			spawnCooldown = findSpawnCooldown();
+			if (Random.value <= spawnChance) {
+				Invoke("spawnZombie", spawnDelay);
+				spawnCooldown = findSpawnCooldown();
+			}
 		}
 
 	}
 
 	void spawnZombie() {
-		if (Random.value <= spawnChance) {
-			Instantiate(zombie,
-						transform.position + (Vector3.down * transform.rotation.eulerAngles.magnitude),
-						Quaternion.identity);
-		}
+		Instantiate(zombie,
+					transform.position + (Vector3.down * transform.rotation.eulerAngles.magnitude),
+					Quaternion.identity);
+	
 	}
 
 	private float findSpawnCooldown() {
-
 		//computes spawn cooldown based on exponential decay (function of game time)
 		//f(x) = startSpawnTimer * exp(gameTime / spawnDecayScalar)
 		float returnCandidate = startSpawnTimer * 
@@ -46,4 +45,5 @@ public class ZombieSpawner : MonoBehaviour {
 		}
 		else return returnCandidate;
 	}
+
 }
