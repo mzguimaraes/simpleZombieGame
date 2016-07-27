@@ -5,6 +5,8 @@ public class Zombie : MonoBehaviour {
 
 	public float speed = 50;
 	public int health = 1;
+	public GameObject ammo;
+	public float ammoDropRate = 0.3f;
 
 	private GameObject player;
 	private Vector3 moveVector = Vector3.zero;
@@ -13,12 +15,10 @@ public class Zombie : MonoBehaviour {
 	void Start () {
 		rb2d = GetComponent<Rigidbody2D>();
 		player = GameObject.FindGameObjectWithTag("Player");
+		if (ammoDropRate > 1f) {
+			ammoDropRate = 1f;
+		}
 	}
-
-//	void Update () {
-//		Debug.Log("Velocity difference: " + 
-//			(player.gameObject.GetComponent<Rigidbody2D>().velocity - rb2d.velocity));
-//	}
 
 	void FixedUpdate() {
 		if (player != null) {
@@ -35,8 +35,15 @@ public class Zombie : MonoBehaviour {
 	public void TakeDamage() {
 		health--;
 		if (health <= 0) {
-			Destroy(gameObject);
 			GameObject.FindObjectOfType<PointSystem>().incrementZombiesToAdd();
+
+			if (Random.value <= ammoDropRate) {
+				Instantiate(ammo,
+							transform.position,
+							Quaternion.identity);
+			}
+
+			Destroy(gameObject);
 		}
 	}
 }

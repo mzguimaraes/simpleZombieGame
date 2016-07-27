@@ -5,12 +5,20 @@ public class PlayerMoveShoot : MonoBehaviour {
 
 	public float speed = 50f;
 	public Bullet bullet;
+	public int startingAmmo = 20;
 
 	private Rigidbody2D rb2d;
 
+	private int ammoCount;
+	public int AmmoCount {
+		get {
+			return ammoCount;
+		}
+	}
+
 	void Start() {
 		rb2d = GetComponent<Rigidbody2D>();
-
+		ammoCount = startingAmmo;
 	}
 
 	void Update () {
@@ -19,10 +27,11 @@ public class PlayerMoveShoot : MonoBehaviour {
 		lookDir.z = 0f;
 		transform.up = lookDir;
 
-		if(Input.GetMouseButtonDown(0)) {
+		if(Input.GetMouseButtonDown(0) && ammoCount > 0) {
 			Instantiate(bullet, 
 						transform.position, 
 						Quaternion.identity);
+			ammoCount--;
 		}
 	}
 	
@@ -40,7 +49,9 @@ public class PlayerMoveShoot : MonoBehaviour {
 		move *= speed * Time.deltaTime;
 
 		rb2d.velocity = move;
+	}
 
-
+	public void gainAmmo(int amount) {
+		ammoCount += amount;
 	}
 }
